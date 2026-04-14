@@ -83,14 +83,14 @@ unset($p);
             <div class="glass-panel rounded-xl overflow-hidden group">
                 <div class="relative h-64 overflow-hidden">
                     <?php if ($project['main_image']): ?>
-                    <img src="../<?php echo htmlspecialchars($project['main_image']); ?>" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <img src="<?php echo BASE_URL . '/' . htmlspecialchars($project['main_image']); ?>" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                     <?php else: ?>
                     <div class="w-full h-full bg-white/5 flex items-center justify-center">
                         <span class="text-4xl opacity-20">📷</span>
                     </div>
                     <?php endif; ?>
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition"></div>
-                    <div class="absolute top-4 right-4 flex flex-col space-y-2">
+                    <div class="absolute top-4 right-4 flex flex-col space-y-2 z-10">
                         <button onclick='window.location.href="builder.php?id=<?php echo $project['id']; ?>"' class="w-8 h-8 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-xs hover:bg-purple-500 hover:text-white transition shadow-lg" title="Construtor de Blocos">▤</button>
                         <button onclick='openEditModal(<?php echo htmlspecialchars(json_encode($project), ENT_QUOTES, 'UTF-8'); ?>)' class="w-8 h-8 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-xs hover:bg-[#0875e9] hover:text-white transition shadow-lg">✎</button>
                         <form action="projects.php" method="POST" onsubmit="return confirm('Excluir este projeto permanentemente?');" class="m-0">
@@ -175,8 +175,8 @@ unset($p);
                         <div>
                             <label class="block text-[10px] uppercase font-bold tracking-widest text-white/40 mb-2">Cover principal</label>
                             <div class="w-full h-48 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center relative overflow-hidden group hover:border-blue-500 transition">
-                                 <input type="file" name="main_image" class="absolute inset-0 opacity-0 cursor-pointer" onchange="previewImage(this, 'previewImg')">
-                                 <img id="previewImg" class="absolute inset-0 w-full h-full object-cover hidden">
+                                 <img id="previewImg" class="absolute inset-0 w-full h-full object-cover hidden z-0">
+                                 <input type="file" name="main_image" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="previewImage(this, 'previewImg')">
                                  <div class="text-xl">📸</div>
                                  <!-- Remove cover button -->
                                  <button type="button" id="btnRemoveCover" onclick="removeMainImage()" class="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition duration-300 hidden">
@@ -189,7 +189,7 @@ unset($p);
                         <div>
                             <label class="block text-[10px] uppercase font-bold tracking-widest text-white/40 mb-2">Galeria (Várias Fotos)</label>
                             <div class="w-full h-48 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center relative group hover:border-purple-500 transition mb-4">
-                                 <input type="file" name="gallery[]" multiple class="absolute inset-0 opacity-0 cursor-pointer">
+                                 <input type="file" name="gallery[]" multiple class="absolute inset-0 opacity-0 cursor-pointer z-10">
                                  <div class="text-xl">🖼️</div>
                                  <span class="text-[8px] font-black opacity-30">UPLOAD MÚLTIPLO</span>
                             </div>
@@ -240,11 +240,15 @@ unset($p);
             document.getElementById('projectGridSize').value = project.grid_size;
             document.getElementById('projectExternalLink').value = project.external_link;
             
-            const tools = JSON.parse(project.tools_used);
+            let tools = [];
+            try {
+                tools = JSON.parse(project.tools_used);
+            } catch(e) { tools = []; }
             document.getElementById('projectTools').value = Array.isArray(tools) ? tools.join('; ') : '';
             
+            const baseUrl = '<?php echo BASE_URL; ?>';
             if (project.main_image) {
-                document.getElementById('previewImg').src = '../' + project.main_image;
+                document.getElementById('previewImg').src = baseUrl + '/' + project.main_image;
                 document.getElementById('previewImg').classList.remove('hidden');
                 document.getElementById('btnRemoveCover').classList.remove('hidden');
             } else {
@@ -261,7 +265,7 @@ unset($p);
                     wrap.className = 'relative group w-full h-32 rounded-lg overflow-hidden border border-white/5 shadow-xl transition-all duration-300 hover:border-blue-500/50';
                     wrap.id = 'gal-img-' + img.id;
                     wrap.innerHTML = `
-                        <img src="../${img.image_path}" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500">
+                        <img src="${baseUrl}/${img.image_path}" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500">
                         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-2 flex justify-between items-center opacity-0 group-hover:opacity-100 transition translate-y-2 group-hover:translate-y-0 duration-300">
                             <button type="button" onclick="setAsCover('${img.image_path}')" class="w-7 h-7 bg-blue-600 hover:bg-blue-400 text-white rounded-full flex items-center justify-center text-[10px] shadow-lg transition" title="Definir como Capa">★</button>
                             <button type="button" onclick="deleteGalleryImage(${img.id})" class="w-7 h-7 bg-red-600/80 hover:bg-red-500 text-white rounded-full flex items-center justify-center text-[10px] shadow-lg transition" title="Deletar">✕</button>
@@ -330,7 +334,8 @@ unset($p);
                 });
                 const data = await res.json();
                 if (data.success) {
-                    document.getElementById('previewImg').src = '../' + path;
+                    const baseUrl = '<?php echo BASE_URL; ?>';
+                    document.getElementById('previewImg').src = baseUrl + '/' + path;
                     document.getElementById('previewImg').classList.remove('hidden');
                     document.getElementById('btnRemoveCover').classList.remove('hidden');
                     alert('Capa atualizada com sucesso!');

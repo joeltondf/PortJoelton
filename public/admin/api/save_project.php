@@ -24,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] === 0) {
             $ext = pathinfo($_FILES['main_image']['name'], PATHINFO_EXTENSION);
             $filename = 'proj_' . time() . '.' . $ext;
-            move_uploaded_file($_FILES['main_image']['tmp_name'], '../../images/projects/' . $filename);
+            $upload_dir = __DIR__ . '/../../images/projects/';
+            if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+            move_uploaded_file($_FILES['main_image']['tmp_name'], $upload_dir . $filename);
             $main_image = 'images/projects/' . $filename;
             $pdo->prepare("UPDATE projects SET main_image = ? WHERE id = ?")->execute([$main_image, $project_id]);
         }
@@ -34,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] === 0) {
             $ext = pathinfo($_FILES['main_image']['name'], PATHINFO_EXTENSION);
             $filename = 'proj_' . time() . '.' . $ext;
-            $upload_dir = '../../images/projects/';
+            $upload_dir = __DIR__ . '/../../images/projects/';
             if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
             move_uploaded_file($_FILES['main_image']['tmp_name'], $upload_dir . $filename);
             $main_image = 'images/projects/' . $filename;
@@ -57,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle Gallery Uploads (Always add to gallery if uploaded)
     if (isset($_FILES['gallery']) && !empty($_FILES['gallery']['name'][0])) {
-        $upload_dir = '../../images/projects/';
+        $upload_dir = __DIR__ . '/../../images/projects/';
         if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
         
         $files = $_FILES['gallery'];

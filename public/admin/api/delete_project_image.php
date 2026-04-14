@@ -11,7 +11,7 @@ if (isset($data['image_id'])) {
     $img = $stmt->fetch();
     
     if ($img) {
-        $file_path = '../../' . $img['image_path'];
+        $file_path = __DIR__ . '/../../' . $img['image_path'];
         if (file_exists($file_path)) {
             unlink($file_path);
         }

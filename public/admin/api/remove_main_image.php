@@ -14,7 +14,7 @@ if (isset($data['project_id'])) {
     $project = $stmt->fetch();
     
     if ($project && $project['main_image']) {
-        $file_path = '../../' . $project['main_image'];
+        $file_path = __DIR__ . '/../../' . $project['main_image'];
         if (file_exists($file_path)) {
             // Check if this image is used by other projects or in gallery before deleting
             // (Simplification: just delete if not in project_images)
