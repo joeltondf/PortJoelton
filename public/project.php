@@ -162,7 +162,7 @@ ob_start();
                         <p class="text-xl font-bold text-white/80 leading-relaxed italic border-l-2 border-[#0875e9] pl-6"><?php echo nl2br(htmlspecialchars($project['summary'])); ?></p>
                     </div>
                     <?php if ($project['external_link']): ?>
-                    <a href="<?php echo $project['external_link']; ?>" target="_blank" rel="noopener" class="block w-full py-6 bg-custom-gradient text-white text-center font-black uppercase tracking-widest text-[10px] shadow-2xl hover:scale-105 transition">VISUALIZAR PROJETO AO VIVO</a>
+                    <a href="<?php echo $project['external_link']; ?>" target="_blank" rel="noopener" class="block w-full py-6 bg-premium-button text-white text-center font-black uppercase tracking-[0.3em] text-[10px] hover:scale-[1.02] active:scale-95 transition-all duration-300 rounded-lg">VISUALIZAR PROJETO AO VIVO</a>
                     <?php endif; ?>
                     
                     <!-- Task 5 — Botão de contato -->
@@ -176,8 +176,8 @@ ob_start();
                 <?php if (empty(array_filter($blocks, fn($b) => $b['block_type'] === 'text')) && !empty($project['description'])): ?>
                 <div class="prose prose-invert max-w-none mb-12">
                     <h3 class="text-3xl font-bold text-white mb-6">Execução e Estratégia</h3>
-                    <div class="text-lg text-white/60 leading-relaxed space-y-6">
-                        <?php echo nl2br(htmlspecialchars($project['description'])); ?>
+                    <div class="text-lg text-white/60 leading-relaxed break-words whitespace-pre-line">
+                        <?php echo htmlspecialchars($project['description']); ?>
                     </div>
                 </div>
                 <?php endif; ?>

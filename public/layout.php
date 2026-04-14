@@ -91,6 +91,17 @@
             color: #000000;
         }
 
+        .bg-premium-button {
+            background: linear-gradient(135deg, #0875e9 0%, #8309ee 100%);
+            box-shadow: 0 10px 30px rgba(8, 117, 233, 0.2);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .bg-premium-button:hover {
+            box-shadow: 0 15px 40px rgba(8, 117, 233, 0.4);
+            filter: brightness(1.1);
+        }
+
         .border-custom-gradient {
             border: 1px solid var(--accent-start);
         }

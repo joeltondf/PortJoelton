@@ -194,14 +194,14 @@ unset($p);
                                  <span class="text-[8px] font-black opacity-30">UPLOAD MÚLTIPLO</span>
                             </div>
                             <!-- Existing Gallery Preview Container -->
-                            <div id="existingGallery" class="grid grid-cols-3 gap-2 max-h-32 overflow-y-auto pr-2 custom-scroll">
+                            <div id="existingGallery" class="grid grid-cols-3 gap-3 max-h-64 overflow-y-auto pr-2 custom-scroll py-2">
                                 <!-- Images injected via JS -->
                             </div>
                         </div>
                     </div>
                     <div class="pt-8">
-                        <button type="submit" class="w-full py-5 bg-custom-gradient text-white font-bold uppercase tracking-widest text-[10px] hover:scale-105 transition duration-500 rounded shadow-xl">
-                            Salvar e Continuar para Editor de Blocos &rarr;
+                        <button type="submit" class="w-full py-5 bg-gradient-to-r from-[#0875e9] to-[#8309ee] hover:from-[#005fb8] hover:to-[#6a07be] text-white font-black uppercase tracking-[0.4em] text-[10px] hover:scale-[1.02] active:scale-95 transition-all duration-500 rounded-lg shadow-[0_10px_30px_rgba(8,117,233,0.3)]">
+                            SALVAR CONFIGURAÇÕES DO CASE &rarr;
                         </button>
                     </div>
                 </div>
@@ -258,13 +258,13 @@ unset($p);
             if (project.gallery && project.gallery.length > 0) {
                 project.gallery.forEach(img => {
                     const wrap = document.createElement('div');
-                    wrap.className = 'relative group w-full h-16 rounded overflow-hidden border border-white/10';
+                    wrap.className = 'relative group w-full h-24 rounded-lg overflow-hidden border border-white/5 shadow-xl transition-all duration-300 hover:border-blue-500/50';
                     wrap.id = 'gal-img-' + img.id;
                     wrap.innerHTML = `
-                        <img src="../${img.image_path}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/60 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition cursor-default">
-                            <button type="button" onclick="setAsCover('${img.image_path}')" class="bg-blue-600 hover:bg-blue-500 text-white p-1 rounded text-[7px] font-bold tracking-tight" title="Definir como Capa">CAPA</button>
-                            <button type="button" onclick="deleteGalleryImage(${img.id})" class="bg-red-600 hover:bg-red-500 text-white p-1 rounded text-[7px] font-bold tracking-tight" title="Deletar">LIXO</button>
+                        <img src="../${img.image_path}" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500">
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-2 flex justify-between items-center opacity-0 group-hover:opacity-100 transition translate-y-2 group-hover:translate-y-0 duration-300">
+                            <button type="button" onclick="setAsCover('${img.image_path}')" class="w-7 h-7 bg-blue-600 hover:bg-blue-400 text-white rounded-full flex items-center justify-center text-[10px] shadow-lg transition" title="Definir como Capa">★</button>
+                            <button type="button" onclick="deleteGalleryImage(${img.id})" class="w-7 h-7 bg-red-600/80 hover:bg-red-500 text-white rounded-full flex items-center justify-center text-[10px] shadow-lg transition" title="Deletar">✕</button>
                         </div>
                     `;
                     galContainer.appendChild(wrap);
