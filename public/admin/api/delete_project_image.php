@@ -1,5 +1,5 @@
 <?php
-require_once '../config.php';
+if (!defined('BASE_URL')) exit;
 checkAuth();
 
 $input = file_get_contents('php://input');
