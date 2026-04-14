@@ -81,7 +81,7 @@ unset($p);
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach($projects as $project): ?>
             <div class="glass-panel rounded-xl overflow-hidden group">
-                <div class="relative h-48 overflow-hidden">
+                <div class="relative h-64 overflow-hidden">
                     <?php if ($project['main_image']): ?>
                     <img src="../<?php echo htmlspecialchars($project['main_image']); ?>" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                     <?php else: ?>
@@ -90,13 +90,13 @@ unset($p);
                     </div>
                     <?php endif; ?>
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition"></div>
-                    <div class="absolute top-4 right-4 flex space-x-2">
-                        <button onclick='window.location.href="builder.php?id=<?php echo $project['id']; ?>"' class="w-8 h-8 bg-black/80 rounded-full flex items-center justify-center text-xs hover:bg-purple-500 hover:text-white transition" title="Construtor de Blocos">▤</button>
-                        <button onclick='openEditModal(<?php echo htmlspecialchars(json_encode($project), ENT_QUOTES, 'UTF-8'); ?>)' class="w-8 h-8 bg-black/80 rounded-full flex items-center justify-center text-xs hover:bg-[#0875e9] hover:text-white transition">✎</button>
-                        <form action="projects.php" method="POST" onsubmit="return confirm('Excluir este projeto permanentemente?');">
+                    <div class="absolute top-4 right-4 flex flex-col space-y-2">
+                        <button onclick='window.location.href="builder.php?id=<?php echo $project['id']; ?>"' class="w-8 h-8 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-xs hover:bg-purple-500 hover:text-white transition shadow-lg" title="Construtor de Blocos">▤</button>
+                        <button onclick='openEditModal(<?php echo htmlspecialchars(json_encode($project), ENT_QUOTES, 'UTF-8'); ?>)' class="w-8 h-8 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-xs hover:bg-[#0875e9] hover:text-white transition shadow-lg">✎</button>
+                        <form action="projects.php" method="POST" onsubmit="return confirm('Excluir este projeto permanentemente?');" class="m-0">
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="id" value="<?php echo $project['id']; ?>">
-                            <button type="submit" class="w-8 h-8 bg-red-900/80 rounded-full flex items-center justify-center text-xs hover:bg-red-500 transition">✕</button>
+                            <button type="submit" class="w-8 h-8 bg-red-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-xs hover:bg-red-500 transition shadow-lg">✕</button>
                         </form>
                     </div>
                 </div>
@@ -124,7 +124,7 @@ unset($p);
             <button onclick="closeModal()" class="absolute top-8 right-8 text-2xl text-white/30 hover:text-white">&times;</button>
             <h2 id="modalTitle" class="text-4xl font-bold tracking-tighter mb-10">Configurar <i class="playfair italic">Case</i></h2>
             
-            <form action="api/save_project.php" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <form action="api/save_project" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <input type="hidden" name="project_id" id="projectId">
                 <div class="space-y-6">
                     <div>
@@ -174,7 +174,7 @@ unset($p);
                     <div class="grid grid-cols-2 gap-6">
                         <div>
                             <label class="block text-[10px] uppercase font-bold tracking-widest text-white/40 mb-2">Cover principal</label>
-                            <div class="w-full h-32 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center relative overflow-hidden group hover:border-blue-500 transition">
+                            <div class="w-full h-48 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center relative overflow-hidden group hover:border-blue-500 transition">
                                  <input type="file" name="main_image" class="absolute inset-0 opacity-0 cursor-pointer" onchange="previewImage(this, 'previewImg')">
                                  <img id="previewImg" class="absolute inset-0 w-full h-full object-cover hidden">
                                  <div class="text-xl">📸</div>
@@ -188,7 +188,7 @@ unset($p);
                         </div>
                         <div>
                             <label class="block text-[10px] uppercase font-bold tracking-widest text-white/40 mb-2">Galeria (Várias Fotos)</label>
-                            <div class="w-full h-32 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center relative group hover:border-purple-500 transition mb-4">
+                            <div class="w-full h-48 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center relative group hover:border-purple-500 transition mb-4">
                                  <input type="file" name="gallery[]" multiple class="absolute inset-0 opacity-0 cursor-pointer">
                                  <div class="text-xl">🖼️</div>
                                  <span class="text-[8px] font-black opacity-30">UPLOAD MÚLTIPLO</span>
@@ -258,7 +258,7 @@ unset($p);
             if (project.gallery && project.gallery.length > 0) {
                 project.gallery.forEach(img => {
                     const wrap = document.createElement('div');
-                    wrap.className = 'relative group w-full h-24 rounded-lg overflow-hidden border border-white/5 shadow-xl transition-all duration-300 hover:border-blue-500/50';
+                    wrap.className = 'relative group w-full h-32 rounded-lg overflow-hidden border border-white/5 shadow-xl transition-all duration-300 hover:border-blue-500/50';
                     wrap.id = 'gal-img-' + img.id;
                     wrap.innerHTML = `
                         <img src="../${img.image_path}" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500">
@@ -277,7 +277,7 @@ unset($p);
         async function deleteGalleryImage(id) {
             if (!confirm('Deletar imagem da galeria?')) return;
             try {
-                const res = await fetch('api/delete_project_image.php', {
+                const res = await fetch('api/delete_project_image', {
                     method: 'POST',
                     body: JSON.stringify({ image_id: id }),
                     headers: { 'Content-Type': 'application/json' }
@@ -299,7 +299,7 @@ unset($p);
             if (!confirm('Remover a imagem de capa atual?')) return;
             
             try {
-                const res = await fetch('api/remove_main_image.php', {
+                const res = await fetch('api/remove_main_image', {
                     method: 'POST',
                     body: JSON.stringify({ project_id: id }),
                     headers: { 'Content-Type': 'application/json' }
@@ -323,7 +323,7 @@ unset($p);
             if (!confirm('Usar esta imagem da galeria como capa principal?')) return;
             
             try {
-                const res = await fetch('api/set_as_cover.php', {
+                const res = await fetch('api/set_as_cover', {
                     method: 'POST',
                     body: JSON.stringify({ project_id: id, image_path: path }),
                     headers: { 'Content-Type': 'application/json' }
