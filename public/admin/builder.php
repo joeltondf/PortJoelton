@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+if (!defined('BASE_URL')) exit;
 checkAuth();
 
 $project_id = $_GET['id'] ?? 0;

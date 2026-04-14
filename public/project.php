@@ -1,4 +1,5 @@
 <?php
+if (!defined('BASE_URL')) exit;
 /**
  * project.php — Página de Detalhe do Projeto
  * 

@@ -1,3 +1,4 @@
+<?php if (!defined('BASE_URL')) exit; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>

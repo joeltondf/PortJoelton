@@ -1,10 +1,5 @@
 <?php
-/**
- * Admin — Página de Sincronização
- * Rota: /admin/sync.php
- * Protegida por checkAuth()
- */
-require_once __DIR__ . '/config.php';
+if (!defined('BASE_URL')) exit;
 checkAuth();
 
 $ran = false;

@@ -1,4 +1,6 @@
 <?php
+if (!defined('BASE_URL')) exit;
+
 // Task 3 — Helper de otimização de imagens (WebP + lazy loading)
 require_once __DIR__ . '/api/image_helper.php';
 ?>

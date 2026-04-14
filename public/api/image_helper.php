@@ -1,4 +1,5 @@
 <?php
+if (!defined('BASE_URL')) exit;
 /**
  * Helpers de Otimização de Imagens — WebP Converter
  * 

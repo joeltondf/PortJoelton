@@ -7,36 +7,42 @@ ini_set('display_errors', 1);
 function view($file, $data = []) {
     extract($data);
     ob_start();
-    // Garante que o caminho do include está correto a partir de public/
     include __DIR__ . '/' . $file . '.php';
     return ob_get_clean();
 }
 
 // 3. Tratamento de URI e Roteamento
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// Detecta a BASE_URL automaticamente (ex: /portifolio ou vazio)
+$scriptName = $_SERVER['SCRIPT_NAME']; // ex: /portifolio/public/index.php
+$publicPath = str_replace('\\', '/', __DIR__); // ex: C:/.../portifolio/public
+$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']); // ex: C:/.../www
 
-// Detecta se estamos em um subdiretório (importante para assets)
-$basePath = dirname($_SERVER['SCRIPT_NAME']);
+// Calcula o caminho relativo da pasta public em relação ao root do servidor
+$basePath = str_replace($documentRoot, '', dirname($scriptName)); 
+// Se o root .htaccess redireciona para public, precisamos remover o '/public' do final do basePath para a URL amigável
+$basePath = str_replace('/public', '', $basePath);
 if ($basePath === '/' || $basePath === '\\') {
     $basePath = '';
 }
 
-// Define a BASE_URL para carregar CSS/JS corretamente
 if (!defined('BASE_URL')) {
     define('BASE_URL', $basePath);
 }
 
-// Limpeza da URI: Remove o '/public' caso ele apareça na URL por erro ou cache
-if (strpos($uri, '/public') === 0) {
-    $uri = substr($uri, 7);
+// Limpeza da URI
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Remove o basePath da URI para que o roteamento seja independente da pasta
+if ($basePath !== '' && strpos($uri, $basePath) === 0) {
+    $uri = substr($uri, strlen($basePath));
 }
 
-// Garante que a URI comece com / e não esteja vazia
+// Fallback para index
 if ($uri === "" || $uri === false) { $uri = "/"; }
 if (!str_starts_with($uri, '/')) { $uri = '/' . $uri; }
 
-// 4. Configuração do Banco de Dados
-require_once __DIR__ . '/admin/config.php';
+// 4. Configuração do Banco de Dados (Movido para fora da public)
+require_once __DIR__ . '/../src/config.php';
 
 // 5. Roteador Robusto
 $route = $uri;
@@ -55,11 +61,23 @@ if (str_starts_with($route, '/project/')) {
     exit;
 }
 
-// Verifica rota admin (Deixa o Apache servir os arquivos físicos se existirem)
+// Verifica rota admin
 if (str_starts_with($uri, '/admin')) {
-    // Se o arquivo físico não existir, cai aqui
-    if ($uri === '/admin' || $uri === '/admin/') {
-        include __DIR__ . '/admin/index.php';
+    $adminUri = str_replace('/admin', '', $uri);
+    $adminUri = trim($adminUri, '/');
+    
+    if ($adminUri === '') {
+        $adminFile = 'index.php';
+    } else {
+        $adminFile = $adminUri;
+        if (!str_ends_with($adminFile, '.php')) {
+            $adminFile .= '.php';
+        }
+    }
+
+    $adminPath = __DIR__ . '/admin/' . $adminFile;
+    if (file_exists($adminPath)) {
+        require_once $adminPath;
     } else {
         header("HTTP/1.0 404 Not Found");
         die("<h1>404 - Página Administrativa Não Encontrada</h1>");
@@ -97,7 +115,14 @@ if ($uri === '/') {
         echo $content;
     }
 } else {
-    // Caso não caia em nenhuma rota
-    header("HTTP/1.0 404 Not Found");
-    echo "<h1>404 - Página não encontrada</h1>";
+    $file = __DIR__ . $uri;
+    if (is_dir($file)) { $file = rtrim($file, '/') . '/index.php'; }
+    if (!str_ends_with($file, '.php')) { $file .= '.php'; }
+
+    if (file_exists($file) && is_file($file)) {
+        require_once $file;
+    } else {
+        header("HTTP/1.0 404 Not Found");
+        echo "<h1>404 - Página não encontrada</h1>";
+    }
 }

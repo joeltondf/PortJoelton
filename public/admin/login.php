@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+if (!defined('BASE_URL')) exit;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';

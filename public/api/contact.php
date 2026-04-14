@@ -1,8 +1,6 @@
 <?php
+if (!defined('BASE_URL')) exit;
 header('Content-Type: application/json');
-
-// Include global configuration for DB connection
-require_once __DIR__ . '/../admin/config.php';
 
 // Get data
 $input = file_get_contents('php://input');
