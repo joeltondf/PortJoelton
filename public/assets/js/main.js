@@ -3,6 +3,49 @@ gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener('DOMContentLoaded', () => {
     // ================================================================
+    // Custom Premium Cursor
+    // ================================================================
+    const cursor = document.querySelector('.custom-cursor');
+    const cursorDot = document.querySelector('.custom-cursor-dot');
+    
+    if (cursor && cursorDot) {
+        // Use GSAP quickTo for premium elastic/smooth mouse tracking
+        const cursorX = gsap.quickTo(cursor, "left", { duration: 0.4, ease: "power3.out" });
+        const cursorY = gsap.quickTo(cursor, "top", { duration: 0.4, ease: "power3.out" });
+        
+        const dotX = gsap.quickTo(cursorDot, "left", { duration: 0.1, ease: "power2.out" });
+        const dotY = gsap.quickTo(cursorDot, "top", { duration: 0.1, ease: "power2.out" });
+        
+        window.addEventListener('mousemove', (e) => {
+            cursorX(e.clientX);
+            cursorY(e.clientY);
+            dotX(e.clientX);
+            dotY(e.clientY);
+        });
+
+        // Hide/Show cursor when leaving/entering window
+        document.addEventListener('mouseleave', () => {
+            gsap.to([cursor, cursorDot], { opacity: 0, duration: 0.3 });
+        });
+        document.addEventListener('mouseenter', () => {
+            gsap.to([cursor, cursorDot], { opacity: 1, duration: 0.3 });
+        });
+
+        // Project Items Hover Interactivity (Morphing Cursor with Negative Circle)
+        const projectItems = document.querySelectorAll('.project-item, .gallery-item, .glightbox-trigger');
+        projectItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                cursor.classList.add('gallery-hover-active');
+                gsap.to(cursorDot, { scale: 0, opacity: 0, duration: 0.2 });
+            });
+            item.addEventListener('mouseleave', () => {
+                cursor.classList.remove('gallery-hover-active');
+                gsap.to(cursorDot, { scale: 1, opacity: 1, duration: 0.2 });
+            });
+        });
+    }
+
+    // ================================================================
     // Hero Animations
     // ================================================================
     const heroTl = gsap.timeline();
@@ -42,30 +85,77 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ================================================================
-    // Section Reveals — Headings e cards
+    // Dynamic Reveal Masking on Headings
     // ================================================================
-    const revealItems = document.querySelectorAll('h2, .glass-card:not(.project-item)');
-    
-    revealItems.forEach(item => {
+    const headings = document.querySelectorAll('h2');
+    headings.forEach(heading => {
+        heading.classList.add('mask-reveal');
+        gsap.to(heading, {
+            scrollTrigger: {
+                trigger: heading,
+                start: 'top 85%',
+                once: true
+            },
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 1.6,
+            ease: 'power3.out'
+        });
+    });
+
+    // ================================================================
+    // Scroll-Triggered Parallax (Quem Sou)
+    // ================================================================
+    // Horizontal text sliding
+    const parallaxTexts = document.querySelectorAll('.scroll-parallax-x');
+    parallaxTexts.forEach(txt => {
+        const speed = parseFloat(txt.getAttribute('data-speed')) || 10;
+        gsap.to(txt, {
+            xPercent: speed,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: txt,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.5
+            }
+        });
+    });
+
+    // Vertical image scroll parallax
+    const aboutImg = document.querySelector('.about-parallax-img');
+    if (aboutImg) {
+        gsap.to(aboutImg, {
+            yPercent: -20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.parallax-container',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.5
+            }
+        });
+    }
+
+    // ================================================================
+    // Section Reveals — glass cards
+    // ================================================================
+    const revealCards = document.querySelectorAll('.glass-card:not(.project-item)');
+    revealCards.forEach(item => {
         gsap.from(item, {
             scrollTrigger: {
                 trigger: item,
                 start: 'top 90%',
                 once: true
             },
-            y: 20,
+            y: 35,
             opacity: 0,
-            duration: 0.8,
-            ease: 'power2.out',
-            onComplete: () => {
-                item.style.opacity = "1";
-                item.style.visibility = "visible";
-            }
+            duration: 1.2,
+            ease: 'power3.out'
         });
     });
 
     // ================================================================
-    // Task 4 — Project Grid Stagger (home)
+    // Project Grid Stagger
     // ================================================================
     gsap.from('.project-item', {
         scrollTrigger: {
@@ -73,22 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
             start: 'top 85%',
             once: true
         },
-        y: 50,
+        y: 60,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-        onComplete: function() {
-            document.querySelectorAll('.project-item').forEach(item => {
-                item.style.opacity = "1";
-                item.style.visibility = "visible";
-            });
-        }
+        duration: 1.2,
+        stagger: 0.2,
+        ease: 'power3.out'
     });
 
     // ================================================================
-    // Task 4 — Gallery Stagger (project.php)
-    // Anima as imagens da galeria em cascata com fade-up + scale
+    // Gallery Stagger (project.php)
     // ================================================================
     const galleryGrid = document.querySelector('.gallery-grid');
     if (galleryGrid) {
@@ -102,9 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: 0,
                 opacity: 1,
                 scale: 1,
-                duration: 0.75,
+                duration: 0.9,
                 stagger: {
-                    each: 0.13,
+                    each: 0.15,
                     ease: 'power1.in'
                 },
                 ease: 'power3.out',
@@ -118,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ================================================================
-    // Task 4 — Header do Projeto — fade-up ao entrar
+    // Project Header (project.php)
     // ================================================================
     const projectHeader = document.querySelector('.project-header');
     if (projectHeader) {
@@ -132,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ================================================================
-    // Task 4 — Parallax Suave nas Imagens de Fundo
+    // Parallax on Background Images
     // ================================================================
     document.querySelectorAll('.parallax-bg').forEach(img => {
         const container = img.closest('.parallax-container');
@@ -151,60 +234,92 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ================================================================
-    // Parallax adicional nos Projetos (Movimento extra na tela)
+    // Scrollytelling Skill Progress Bars (Expertise)
     // ================================================================
-    gsap.utils.toArray('.project-item').forEach(item => {
-        const img = item.querySelector('img');
-        if (img) {
-            gsap.to(img, {
-                yPercent: 10,
-                scale: 1.1,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-        }
+    const progressBars = document.querySelectorAll('.skill-progress-bar');
+    progressBars.forEach(bar => {
+        const level = bar.getAttribute('data-level') || '0';
+        gsap.to(bar, {
+            width: `${level}%`,
+            duration: 1.8,
+            ease: 'power4.out',
+            scrollTrigger: {
+                trigger: bar,
+                start: 'top 95%',
+                once: true
+            }
+        });
     });
 
     // ================================================================
-    // Interação Película do Mouse (Spotlight) 
-    // Segue o mouse dentro dos blocos dos projetos
+    // Spotlight & Magnetic Case Button (Magnetism with custom cursor compatibility)
     // ================================================================
     const spotlightWrappers = document.querySelectorAll('.spotlight-wrapper');
+    const btnStrength = 0.07;
+    const labelStrength = 0.09;
+    
     spotlightWrappers.forEach(wrapper => {
+        const btn = wrapper.querySelector('.ver-case-btn');
+        const label = wrapper.querySelector('.ver-case-label');
+        
         wrapper.addEventListener('mousemove', (e) => {
             const rect = wrapper.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
             wrapper.style.setProperty('--mouse-x', `${x}px`);
             wrapper.style.setProperty('--mouse-y', `${y}px`);
+            
+            if (btn) {
+                const mapX = gsap.utils.mapRange(rect.left, rect.right, -rect.width / 2, rect.width / 2, e.clientX);
+                const mapY = gsap.utils.mapRange(rect.top, rect.bottom, -rect.height / 2, rect.height / 2, e.clientY);
+                
+                gsap.to(btn, {
+                    x: mapX * btnStrength,
+                    y: mapY * btnStrength,
+                    duration: 0.4,
+                    ease: "power2.out",
+                    overwrite: true
+                });
+                
+                if (label) {
+                    gsap.to(label, {
+                        x: mapX * labelStrength,
+                        y: mapY * labelStrength,
+                        duration: 0.4,
+                        ease: "power2.out",
+                        overwrite: true
+                    });
+                }
+            }
+        });
+        
+        wrapper.addEventListener('mouseleave', () => {
+            if (btn) {
+                gsap.to(btn, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.7,
+                    ease: "elastic.out(1, 0.4)",
+                    overwrite: true
+                });
+            }
+            if (label) {
+                gsap.to(label, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.7,
+                    ease: "elastic.out(1, 0.4)",
+                    overwrite: true
+                });
+            }
         });
     });
 
+    // Refresh ScrollTrigger calculations
     window.addEventListener('load', () => ScrollTrigger.refresh());
 
     // ================================================================
-    // Chart Animation
-    // ================================================================
-    gsap.from('.chart-bar', {
-        scrollTrigger: {
-            trigger: '#skills',
-            start: 'top center',
-        },
-        scaleY: 0,
-        transformOrigin: 'bottom',
-        duration: 2,
-        stagger: 0.1,
-        ease: 'elastic.out(1, 0.5)'
-    });
-
-    // ================================================================
-    // Filter Logic
+    // Filter Cases Logic
     // ================================================================
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectItems = document.querySelectorAll('.project-item');
@@ -232,6 +347,62 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // ================================================================
+    // Interactive Automation Terminal Logic
+    // ================================================================
+    const runBtn = document.getElementById('run-automation-btn');
+    const terminalOutput = document.getElementById('terminal-output');
+    const statusIndicator = document.getElementById('terminal-status');
+
+    if (runBtn && terminalOutput) {
+        const logs = [
+            "Initializing automation script: n8n_pipeline_trigger.sh...",
+            "Connecting to CRM webhook endpoint (https://api.rdstation.com/v2)... SUCCESS.",
+            "Fetching raw customer acquisition parameters...",
+            "Syncing dynamic marketing assets with active email campaigns...",
+            "Analyzing Conversion Rate Optimization logs (SEO/SEM)...",
+            "Starting server-side PHP layout rendering engine...",
+            "Compiling WebP optimization workflows... OK.",
+            "Pipeline successfully executed. 🌟 Tasks completed: 100%"
+        ];
+
+        runBtn.addEventListener('click', () => {
+            runBtn.disabled = true;
+            runBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            statusIndicator.classList.remove('hidden');
+            terminalOutput.innerHTML = "";
+            
+            let delay = 0;
+            logs.forEach((log, index) => {
+                gsap.delayedCall(delay, () => {
+                    const line = document.createElement('div');
+                    line.className = "font-mono transition-opacity duration-300 opacity-0";
+                    line.innerHTML = `<span class="text-blue-400">&gt;</span> ${log}`;
+                    
+                    if (index === logs.length - 1) {
+                        line.classList.add('text-green-400', 'font-bold');
+                    }
+                    
+                    terminalOutput.appendChild(line);
+                    gsap.to(line, { opacity: 1, y: 0, duration: 0.4 });
+                    
+                    // Auto-scroll terminal output
+                    const widget = document.getElementById('terminal-widget');
+                    widget.scrollTop = widget.scrollHeight;
+
+                    // Final log completes
+                    if (index === logs.length - 1) {
+                        statusIndicator.classList.add('hidden');
+                        runBtn.disabled = false;
+                        runBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        runBtn.innerText = "Executar Novamente";
+                    }
+                });
+                delay += 0.6 + Math.random() * 0.5; // Premium dynamic latency logging simulation
+            });
+        });
+    }
 
     // ================================================================
     // Form Masking & Submission

@@ -11,159 +11,24 @@ require_once __DIR__ . '/api/image_helper.php';
     <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-green-600/5 blur-[100px] rounded-full pointer-events-none"></div>
 
     <!-- Main Content -->
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-10 text-center mb-20">
-        <span class="hero-tag text-[10px] font-bold uppercase tracking-[0.5em] text-white/30 block mb-8">Designer & Developer Full-Stack</span>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-10 text-center">
+        <span class="hero-tag text-[10px] font-bold uppercase tracking-[0.5em] text-white/30 block mb-8">MARKETING • DESIGN GRÁFICO • WEB TECH</span>
         <h1 class="hero-title editorial-title text-[9vw] lg:text-[7vw] leading-[0.9] text-white mb-10 tracking-tighter">
-            ESTRATÉGIA <br> <i class="playfair italic font-normal">VISUAL.</i>
+            ESTRATÉGIA, <br> <i class="playfair italic font-normal">DESIGN & TECH.</i>
         </h1>
-        <p class="hero-p text-sm lg:text-base text-white/40 max-w-xl mx-auto font-medium leading-relaxed mb-12">
-            Fusão entre design de alta fidelidade e arquitetura de software escalável para marcas que buscam autoridade digital.
+        <p class="hero-p text-sm lg:text-base text-white/40 max-w-2xl mx-auto font-medium leading-relaxed mb-16">
+            Formado em Marketing com sólida experiência em Design Gráfico Editorial e Desenvolvimento Full-Stack. Alinho inteligência estratégica de mercado a identidades visuais de alto impacto e tecnologia sob medida para posicionar marcas e órgãos públicos com autoridade.
         </p>
-        <div class="hero-btns flex flex-col sm:flex-row items-center justify-center gap-8">
-            <a href="#projects" class="group px-8 py-4 bg-white text-black text-[10px] font-black uppercase tracking-widest hover:bg-white/90 transition-all flex items-center gap-4">
-                Ver Cases Selecionados <span class="group-hover:translate-x-1 transition-transform">→</span>
+        <div class="hero-btns flex flex-col sm:flex-row items-center justify-center gap-8 mb-16">
+            <a href="#projects" class="group relative px-12 py-6 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] overflow-hidden transition-all duration-300 hover:pr-14 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                Ver Cases Selecionados
+                <span class="absolute right-6 opacity-0 group-hover:opacity-100 transition-all duration-300">→</span>
             </a>
-            <a href="#contact" class="px-8 py-4 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest hover:bg-white/5 transition-all">Começar Projeto</a>
+            <a href="#contact" class="px-12 py-6 border border-white/10 text-white text-[10px] font-black uppercase tracking-[0.3em] hover:bg-white/5 transition-all">Começar Projeto</a>
         </div>
-    </div>
-
-    <!-- Dual Visual Mockups (Vector HTML/CSS) -->
-    <div class="relative z-10 w-full max-w-5xl mx-auto px-10 hero-visuals">
-        <style>
-            @keyframes float { 0%, 100% { transform: translateY(0) rotate(3deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
-            @keyframes pulse-soft { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.4; } }
-            @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(800%); } }
-            @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-            .animate-float { animation: float 6s ease-in-out infinite; }
-            .animate-pulse-slow { animation: pulse-soft 4s ease-in-out infinite; }
-            .scanline { animation: scanline 8s linear infinite; }
-            .cursor-blink { animation: blink 1s step-end infinite; }
-            .mockup-node { transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
-            .hero-visuals { transform-style: preserve-3d; will-change: transform; }
-        </style>
-
-        <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <!-- Left Side: Design Process (Refined Vector) -->
-            <div class="group relative">
-                <div class="absolute -inset-2 bg-blue-500/10 blur-[80px] opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                <div class="relative glass-card overflow-hidden rounded-2xl border border-white/5 h-[380px] bg-[#080808] flex">
-                    <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.05)_0%,transparent_50%)]"></div>
-                    <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,rgba(59,130,246,0.03)_0%,transparent_50%)]"></div>
-                    <div class="w-12 border-r border-white/5 bg-[#141414] p-2 flex flex-col space-y-3 hidden sm:flex z-10">
-                        <div class="w-full aspect-square bg-blue-500/20 rounded-sm"></div>
-                        <div class="w-full h-0.5 bg-white/5 rounded"></div>
-                        <div class="grid grid-cols-2 gap-1">
-                            <div class="h-4 bg-white/5 rounded-sm"></div>
-                            <div class="h-4 bg-white/5 rounded-sm"></div>
-                        </div>
-                        <div class="flex-1"></div>
-                        <div class="w-full aspect-square bg-white/5 rounded-full"></div>
-                    </div>
-                    <div class="flex-1 flex flex-col relative overflow-hidden">
-                        <div class="bg-[#141414] px-4 py-2 border-b border-white/5 flex items-center justify-between z-10">
-                            <div class="flex items-center space-x-2">
-                                <span class="bg-[#A259FF] text-white text-[6px] font-black px-1.5 py-0.5 rounded">F</span>
-                                <span class="text-[8px] text-white/30 uppercase tracking-[0.2em] font-bold">PORTFOLIO_SYSTEM</span>
-                            </div>
-                            <div class="flex -space-x-1">
-                                <div class="w-3 h-3 rounded-full border border-black bg-blue-400"></div>
-                                <div class="w-3 h-3 rounded-full border border-black bg-pink-400"></div>
-                            </div>
-                        </div>
-                        <div class="flex-1 relative bg-[#0e0e0e] overflow-hidden">
-                            <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(white 0.5px, transparent 0.5px); background-size: 15px 15px;"></div>
-                            <div class="p-8 h-full flex flex-col">
-                                <div class="w-full h-10 border border-blue-500/10 rounded bg-blue-500/[0.02] p-3 flex items-center justify-between mockup-node group-hover:border-blue-500/30 transition-all">
-                                    <div class="w-20 h-1 bg-blue-500/20 rounded"></div>
-                                    <div class="flex space-x-1.5">
-                                        <div class="w-4 h-4 rounded-sm bg-white/5"></div>
-                                        <div class="w-4 h-4 rounded-sm bg-white/10"></div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-3 gap-3 flex-1 my-6">
-                                    <div class="col-span-2 border border-white/5 bg-white/[0.02] rounded-lg p-3 overflow-hidden relative group-hover:bg-white/[0.04] transition">
-                                        <div class="w-full h-full bg-gradient-to-br from-blue-500/[0.05] to-transparent"></div>
-                                        <div class="absolute top-0 left-0 w-full h-[1px] bg-blue-500/20 scanline"></div>
-                                    </div>
-                                    <div class="flex flex-col gap-3">
-                                        <div class="h-1/3 bg-white/5 rounded-lg border border-white/5"></div>
-                                        <div class="flex-1 bg-blue-500/10 rounded-lg border border-blue-500/10"></div>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-2 items-center">
-                                    <div class="w-6 h-6 rounded bg-[#0875e9]"></div>
-                                    <div class="w-6 h-6 rounded bg-white/5"></div>
-                                    <div class="flex-1 h-[1px] bg-white/5 ml-2"></div>
-                                </div>
-                            </div>
-                            <div class="absolute top-1/3 left-1/2 flex flex-col items-start pointer-events-none transition-all duration-700 group-hover:translate-x-6 group-hover:-translate-y-2">
-                                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" class="text-blue-500 drop-shadow-lg">
-                                    <path d="M0 0L12 3.5L4.5 5.5L2.5 12L0 0Z" fill="currentColor"/>
-                                </svg>
-                                <span class="bg-blue-500 text-white text-[6px] font-bold px-1.5 py-0.5 rounded shadow-lg">Joelton</span>
-                            </div>
-                            <div class="absolute bottom-4 right-4 w-24 bg-[#141414] border border-white/10 rounded-lg p-2.5 shadow-2xl animate-float pointer-events-none opacity-80">
-                                <div class="space-y-2">
-                                    <div class="flex items-center space-x-2"><div class="w-1.5 h-1.5 rounded bg-purple-500"></div><div class="h-0.5 flex-1 bg-white/10 rounded"></div></div>
-                                    <div class="flex items-center space-x-2"><div class="w-1.5 h-1.5 rounded bg-blue-500"></div><div class="h-0.5 flex-1 bg-white/10 rounded"></div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Side: Code Editor (Refined Vector) -->
-            <div class="group relative">
-                <div class="absolute -inset-2 bg-green-500/10 blur-[80px] opacity-10 group-hover:opacity-30 transition duration-1000"></div>
-                <div class="relative glass-card overflow-hidden rounded-2xl border border-white/5 h-[380px] bg-[#0a0d12] flex flex-col font-mono">
-                    <div class="bg-[#11161d] px-5 py-3 border-b border-white/5 flex items-center space-x-4">
-                        <div class="flex space-x-1.5">
-                            <div class="w-2 h-2 rounded-full bg-[#ff5f56]"></div>
-                            <div class="w-2 h-2 rounded-full bg-[#ffbd2e]"></div>
-                            <div class="w-2 h-2 rounded-full bg-[#27c93f]"></div>
-                        </div>
-                        <span class="text-[8px] text-white/20 uppercase tracking-[0.2em]">Logic.php</span>
-                    </div>
-                    <div class="flex-1 flex overflow-hidden">
-                        <div class="w-10 bg-[#0a0d12] border-r border-white/5 flex flex-col items-center py-6 space-y-1.5 text-[7px] text-white/10">
-                            <?php for($i=1; $i<=10; $i++): ?><span><?php echo $i; ?></span><?php endfor; ?>
-                        </div>
-                        <div class="flex-1 p-8 text-[10px] leading-5 relative">
-                            <div class="text-[#8b949e] italic mb-4 opacity-40">/* Project Autoria */</div>
-                            <div class="space-y-1 pointer-events-none">
-                                <div><span class="text-[#ff7b72]">class</span> <span class="text-[#d2a8ff]">Portfolio</span> {</div>
-                                <div class="pl-5"><span class="text-[#ff7b72]">public</span> <span class="text-[#d2a8ff]">function</span> <span class="text-[#d2a8ff]">optimize</span>() {</div>
-                                <div class="pl-10"><span class="text-[#ff7b72]">return</span> [</div>
-                                <div class="pl-15 text-[#a5d6ff]">'speed' => '99%',</div>
-                                <div class="pl-15 text-[#a5d6ff]">'style' => 'premium'</div>
-                                <div class="pl-10">];</div>
-                                <div class="pl-5">}</div>
-                                <div>} <span class="w-1 h-3.5 bg-green-500 inline-block align-middle cursor-blink ml-1"></span></div>
-                            </div>
-                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-green-500/5 blur-[50px] pointer-events-none rounded-full animate-pulse-slow"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-14 text-center">
-            <span class="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 block mb-12">
-                DO CONCEITO AO CÓDIGO: DESIGN & DESENVOLVIMENTO FULL-STACK.
-            </span>
-            
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-8">
-                <a href="#projects" class="group relative px-12 py-6 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] overflow-hidden transition-all duration-300 hover:pr-14 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]">
-                    Ver Portfólio
-                    <span class="absolute right-6 opacity-0 group-hover:opacity-100 transition-all duration-300">→</span>
-                </a>
-                <a href="#contact" class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 hover:text-white transition group flex items-center gap-4">
-                    Entre em contato
-                    <span class="w-8 h-[1px] bg-white/20 group-hover:w-12 transition-all duration-500"></span>
-                </a>
-            </div>
-        </div>
+        <span class="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 block">
+            DO CONCEITO AO CÓDIGO: MARKETING, DESIGN & DESENVOLVIMENTO WEB.
+        </span>
     </div>
 </section>
 
@@ -172,19 +37,44 @@ require_once __DIR__ . '/api/image_helper.php';
     <div class="max-w-7xl mx-auto px-10">
         <style>
             .clients-swiper .swiper-slide {
-                transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-                opacity: 0.15;
-                transform: scale(0.7) translateZ(-100px);
+                transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+                opacity: 0.35; /* Inativos mais nítidos */
+                transform: scale(0.8);
                 filter: grayscale(1);
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
+            /* Em visualização de 5 colunas com centeredSlides: true */
+            /* slides[0] = active (coluna 1) */
+            /* slides[1] = active+1 (coluna 2) */
+            /* slides[2] = active+2 (coluna 3 - Centro Real) */
+            
             .clients-swiper .swiper-slide-active {
-                opacity: 1 !important;
-                transform: scale(1.25) translateZ(0) !important;
+                opacity: 0.35 !important;
+                transform: scale(0.8) !important;
+            }
+            .clients-swiper .swiper-slide-next {
+                opacity: 0.55 !important;
+                transform: scale(0.95) !important;
+                filter: grayscale(0.8) !important;
+            }
+            /* O slide central no grid de 5 colunas (duas colunas após o active) */
+            .clients-swiper .swiper-slide-next + .swiper-slide {
+                opacity: 1.0 !important;
+                transform: scale(1.35) !important; /* Terceira coluna maior */
                 filter: grayscale(0) !important;
                 z-index: 10;
+            }
+            .clients-swiper .swiper-slide-next + .swiper-slide + .swiper-slide {
+                opacity: 0.55 !important;
+                transform: scale(0.95) !important;
+                filter: grayscale(0.8) !important;
+            }
+            .filter-btn.active {
+                border-color: rgba(139, 92, 246, 0.5) !important;
+                color: #ffffff !important;
+                background-color: rgba(255, 255, 255, 0.05);
             }
         </style>
         <div class="swiper clients-swiper py-20">
@@ -213,6 +103,76 @@ require_once __DIR__ . '/api/image_helper.php';
     </div>
 </section>
 
+<!-- Quem Sou (Perfil Estratégico) Section -->
+<section id="about" class="py-32 px-10 border-t border-white/5 bg-[#080808] relative overflow-hidden">
+    <!-- Glowing light in background -->
+    <div class="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-purple-600/5 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-600/5 blur-[100px] rounded-full pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="overflow-hidden mb-20">
+            <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-white/30 block mb-6 scroll-parallax-x" data-speed="-20">Quem Sou</span>
+            <h2 class="text-6xl font-bold tracking-tighter text-white scroll-parallax-x" data-speed="20">Perfil <i class="playfair italic font-normal">Multidisciplinar.</i></h2>
+        </div>
+        
+        <div class="grid lg:grid-cols-12 gap-16 items-center">
+            <!-- Coluna Esquerda: Apresentação e Destaque -->
+            <div class="lg:col-span-4 space-y-8">
+                <h3 class="text-3xl font-bold text-white leading-tight tracking-tight">
+                    A convergência entre <span class="gradient-text">Mercado, Arte</span> e <span class="gradient-text">Engenharia.</span>
+                </h3>
+                <p class="text-white/60 leading-relaxed text-lg font-medium">
+                    Acredito que design sem propósito comercial é apenas decoração, e tecnologia sem uma identidade forte e estrutura de vendas é invisível. Unifico estratégia de marketing digital, design gráfico editorial e desenvolvimento full-stack para criar produtos digitais que geram autoridade e trazem resultados reais.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-4">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#0875e9] bg-[#0875e9]/10 border border-[#0875e9]/20 px-4 py-2 rounded-full">Bacharel em Marketing</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400 bg-purple-400/10 border border-purple-400/20 px-4 py-2 rounded-full">Designer Gráfico Editorial</span>
+                </div>
+            </div>
+            
+            <!-- Coluna Central: Imagem Parallax -->
+            <div class="lg:col-span-4 flex justify-center py-10">
+                <div class="relative w-full max-w-[280px] aspect-[2/3] overflow-hidden rounded-2xl border border-white/10 parallax-container shadow-2xl">
+                    <img src="<?php echo BASE_URL; ?>/images/about_parallax.png" class="absolute inset-0 w-full h-[130%] object-cover about-parallax-img" alt="Joelton Souza - Perfil Estratégico">
+                </div>
+            </div>
+            
+            <!-- Coluna Direita: As Três Vertentes -->
+            <div class="lg:col-span-4 space-y-12">
+                <!-- Pilar 1 -->
+                <div class="vertente-item group">
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-2 group-hover:text-[#0875e9] transition duration-300">Marketing Estratégico</h4>
+                        <p class="text-white/40 leading-relaxed text-sm">
+                            Com formação acadêmica em Marketing, atuo no posicionamento inteligente de marcas. Domino estratégias de funil de vendas, jornada de compra do cliente, SEO/SEM, marketing de conteúdo e otimização de conversão (CRO) para impulsionar negócios e canais digitais.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pilar 2 -->
+                <div class="vertente-item group">
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition duration-300">Design Gráfico & Comunicação Editorial</h4>
+                        <p class="text-white/40 leading-relaxed text-sm">
+                            Vasta experiência no desenvolvimento de projetos gráficos complexos e de alto padrão visual. Especialista na diagramação de livros, cartilhas técnicas e relatórios corporativos para órgãos federais e conselhos nacionais (como Marinha, MCTI, CNMP, MPT e CFM).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pilar 3 -->
+                <div class="vertente-item group">
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition duration-300">Desenvolvimento Web & Automação</h4>
+                        <p class="text-white/40 leading-relaxed text-sm">
+                            Engenharia full-stack robusta para transformar estratégias de marketing em aplicações reais. Criação de sites institucionais otimizados, landing pages de alta conversão, e fluxos de automação de processos via n8n integrados com CRMs e bases de dados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Expertise Section - Hardcoded Skills -->
 <section id="skills" class="py-40 px-10">
     <div class="max-w-7xl mx-auto">
@@ -223,34 +183,34 @@ require_once __DIR__ . '/api/image_helper.php';
 
         <?php
         $skillCategories = [
-            'Design Gráfico' => [
+            'Marketing Estratégico' => [
+                ['name' => 'Posicionamento de Marca & Branding', 'level' => 100, 'lucide' => 'award', 'color' => '#FF5733'],
+                ['name' => 'Canais Digitais & Growth', 'level' => 95, 'lucide' => 'trending-up', 'color' => '#8309ee'],
+                ['name' => 'CRO (Conversão) & SEO', 'level' => 90, 'lucide' => 'target', 'color' => '#0875e9'],
+                ['name' => 'RD Station & Inbound', 'level' => 90, 'svg' => 'RD_Station.svg', 'color' => '#3A2374'],
+                ['name' => 'Mailchimp & Email Marketing', 'level' => 100, 'svg' => 'mailchimp.svg', 'color' => '#FFE01B'],
+                ['name' => 'Power BI & Analytics', 'level' => 85, 'svg' => 'power-bi.svg', 'color' => '#F2C811'],
+            ],
+            'Design Editorial & Gráfico' => [
+                ['name' => 'Adobe InDesign (Editorial)', 'level' => 100, 'svg' => 'indesign.svg', 'color' => '#FF3366'],
                 ['name' => 'Adobe Photoshop', 'level' => 100, 'svg' => 'photoshop.svg', 'color' => '#31A8FF'],
                 ['name' => 'Adobe Illustrator', 'level' => 100, 'svg' => 'ilustrador.svg', 'color' => '#FF9A00'],
-                ['name' => 'Adobe InDesign', 'level' => 100, 'svg' => 'indesign.svg', 'color' => '#FF3366'],
-                ['name' => 'Adobe After Effects', 'level' => 70, 'svg' => 'after-effects.svg', 'color' => '#9999FF'],
                 ['name' => 'Adobe Premiere', 'level' => 85, 'svg' => 'premiere-pro.svg', 'color' => '#9999FF'],
-                ['name' => 'Canva', 'level' => 100, 'svg' => 'canva.svg', 'color' => '#00C4CC'],
-                ['name' => 'PowerPoint', 'level' => 100, 'svg' => 'power-point.svg', 'color' => '#B7472A'],
+                ['name' => 'Adobe After Effects', 'level' => 80, 'svg' => 'after-effects.svg', 'color' => '#9999FF'],
+                ['name' => 'Canva Pro', 'level' => 100, 'svg' => 'canva.svg', 'color' => '#00C4CC'],
+                ['name' => 'Apresentações & Powerpoint', 'level' => 100, 'svg' => 'power-point.svg', 'color' => '#B7472A'],
             ],
-            'Development' => [
-                ['name' => 'PHP', 'level' => 90, 'svg' => 'php.svg', 'color' => '#777BB4'],
-                ['name' => 'Python', 'level' => 80, 'svg' => 'python.svg', 'color' => '#3776AB'],
-                ['name' => 'Node.js', 'level' => 80, 'svg' => 'node.svg', 'color' => '#339933'],
-                ['name' => 'Astro', 'level' => 60, 'svg' => 'astro.svg', 'color' => '#FF5A03'],
-                ['name' => 'Docker', 'level' => 70, 'svg' => 'docker.svg', 'color' => '#2496ED'],
-                ['name' => 'Bootstrap', 'level' => 70, 'svg' => 'bootstrap.svg', 'color' => '#7952B3'],
-                ['name' => 'Tailwind CSS', 'level' => 95, 'svg' => 'tailwind.svg', 'color' => '#06B6D4'],
+            'Engenharia Web & Full-Stack' => [
+                ['name' => 'PHP & Arquitetura MVC', 'level' => 90, 'svg' => 'php.svg', 'color' => '#777BB4'],
+                ['name' => 'Python & Web Scraping', 'level' => 85, 'svg' => 'python.svg', 'color' => '#3776AB'],
+                ['name' => 'Node.js & APIs RESTful', 'level' => 80, 'svg' => 'node.svg', 'color' => '#339933'],
+                ['name' => 'Tailwind CSS & Astro', 'level' => 95, 'svg' => 'tailwind.svg', 'color' => '#06B6D4'],
+                ['name' => 'Bancos de Dados (MySQL / Postgres)', 'level' => 90, 'svg' => 'mysql.svg', 'color' => '#4479A1'],
+                ['name' => 'Docker & Ambientes Virtuais', 'level' => 75, 'svg' => 'docker.svg', 'color' => '#2496ED'],
             ],
-            'Databases' => [
-                ['name' => 'MySQL', 'level' => 90, 'svg' => 'mysql.svg', 'color' => '#4479A1'],
-                ['name' => 'PostgreSQL', 'level' => 80, 'svg' => 'postgresql.svg', 'color' => '#4169E1'],
-            ],
-            'Automation & Marketing' => [
-                ['name' => 'n8n', 'level' => 70, 'svg' => 'n8n.svg', 'color' => '#FF6E6E'],
-                ['name' => 'WordPress', 'level' => 100, 'svg' => 'wordpress.svg', 'color' => '#21759B'],
-                ['name' => 'Mailchimp', 'level' => 100, 'svg' => 'mailchimp.svg', 'color' => '#FFE01B'],
-                ['name' => 'RD Station', 'level' => 80, 'svg' => 'RD_Station.svg', 'color' => '#3A2374'],
-                ['name' => 'Power BI', 'level' => 75, 'svg' => 'power-bi.svg', 'color' => '#F2C811'],
+            'Automações & Integrações' => [
+                ['name' => 'n8n Workflow Automation', 'level' => 90, 'svg' => 'n8n.svg', 'color' => '#FF6E6E'],
+                ['name' => 'WordPress Custom Development', 'level' => 100, 'svg' => 'wordpress.svg', 'color' => '#21759B'],
             ]
         ];
         ?>
@@ -272,14 +232,17 @@ require_once __DIR__ . '/api/image_helper.php';
                                     <div class="w-6 h-6 flex items-center justify-center bg-white/5 rounded p-1 opacity-60 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110" style="transition: all 0.3s ease;">
                                         <img src="<?php echo BASE_URL; ?>/images/icones svg/<?php echo $skill['svg']; ?>" alt="<?php echo $skill['name']; ?>" class="w-full h-full object-contain filter drop-shadow hover:drop-shadow-lg">
                                     </div>
+                                <?php elseif(isset($skill['lucide'])): ?>
+                                    <div class="w-6 h-6 flex items-center justify-center bg-white/5 rounded p-1 opacity-60 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110" style="transition: all 0.3s ease;">
+                                        <i data-lucide="<?php echo $skill['lucide']; ?>" class="w-3.5 h-3.5" style="color: <?php echo $skill['color']; ?>;"></i>
+                                    </div>
                                 <?php endif; ?>
                                 <span class="text-sm font-semibold text-white/80 group-hover:text-white transition-colors duration-300"><?php echo $skill['name']; ?></span>
                             </div>
                             <span class="text-xs font-bold text-white/40 group-hover:text-white transition-colors duration-300 font-mono"><?php echo $skill['level']; ?>%</span>
                         </div>
-                        <div class="relative h-1 bg-white/5 overflow-hidden rounded-full">
-                            <div class="h-full bg-white/20 transition-all duration-700 ease-out group-hover:opacity-0" style="width: <?php echo $skill['level']; ?>%;"></div>
-                            <div class="absolute top-0 left-0 h-full opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" style="width: <?php echo $skill['level']; ?>%; background-color: <?php echo $skill['color']; ?>; box-shadow: 0 0 10px <?php echo $skill['color']; ?>80;"></div>
+                        <div class="relative h-1 bg-white/5 overflow-hidden rounded-full skill-progress-container">
+                            <div class="h-full skill-progress-bar transition-all duration-500" data-level="<?php echo $skill['level']; ?>" style="width: 0%; background-color: <?php echo $skill['color']; ?>; box-shadow: 0 0 10px <?php echo $skill['color']; ?>80;"></div>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -291,20 +254,20 @@ require_once __DIR__ . '/api/image_helper.php';
         <!-- Stats Summary -->
         <div class="mt-20 pt-20 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-8">
             <div class="text-center">
-                <div class="text-4xl font-black text-white mb-2">7</div>
+                <div class="text-4xl font-black text-white mb-2">MKT</div>
+                <span class="text-[10px] uppercase font-bold text-white/40 tracking-widest">Formação Acadêmica</span>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-black text-white mb-2">5+</div>
                 <span class="text-[10px] uppercase font-bold text-white/40 tracking-widest">Softwares Adobe</span>
             </div>
             <div class="text-center">
-                <div class="text-4xl font-black text-white mb-2">7</div>
-                <span class="text-[10px] uppercase font-bold text-white/40 tracking-widest">Linguagens/Frameworks</span>
+                <div class="text-4xl font-black text-white mb-2">6+</div>
+                <span class="text-[10px] uppercase font-bold text-white/40 tracking-widest">Tecnologias Web</span>
             </div>
             <div class="text-center">
-                <div class="text-4xl font-black text-white mb-2">2</div>
-                <span class="text-[10px] uppercase font-bold text-white/40 tracking-widest">Bancos de Dados</span>
-            </div>
-            <div class="text-center">
-                <div class="text-4xl font-black text-white mb-2">5</div>
-                <span class="text-[10px] uppercase font-bold text-white/40 tracking-widest">Plataformas Marketing</span>
+                <div class="text-4xl font-black text-white mb-2">100%</div>
+                <span class="text-[10px] uppercase font-bold text-white/40 tracking-widest">Processo Integrado</span>
             </div>
         </div>
     </div>
@@ -318,10 +281,10 @@ require_once __DIR__ . '/api/image_helper.php';
                 <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-white/30 block mb-6">Trabalhos Selecionados</span>
                 <h2 class="text-7xl font-bold tracking-tighter text-white">Projetos <i class="playfair italic font-normal">Criados.</i></h2>
             </div>
-            <div class="flex space-x-8 mt-12 md:mt-0">
-                <button class="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white filter-btn active" data-filter="all">Tudo</button>
+            <div class="flex flex-wrap gap-3 mt-12 md:mt-0 md:justify-end max-w-xl">
+                <button class="px-5 py-2.5 rounded-full border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white filter-btn active transition-all duration-300" data-filter="all">Tudo</button>
                 <?php foreach($categories as $category): ?>
-                    <button class="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white filter-btn" data-filter="<?php echo htmlspecialchars($category['slug']); ?>">
+                    <button class="px-5 py-2.5 rounded-full border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white filter-btn transition-all duration-300" data-filter="<?php echo htmlspecialchars($category['slug']); ?>">
                         <?php echo htmlspecialchars($category['name']); ?>
                     </button>
                 <?php endforeach; ?>
@@ -338,29 +301,26 @@ require_once __DIR__ . '/api/image_helper.php';
                     <?php
                     // Task 3 — WebP otimizado + lazy loading
                     $rawSrc = $project['main_image'] ?? '';
-                    $isExternal = str_starts_with($rawSrc, 'http');
-                    if ($isExternal) {
-                        $imgSrc = $rawSrc;
-                    } else {
-                        $imgSrc = BASE_URL . '/' . getOptimizedImageUrl($rawSrc);
-                    }
+                    $imgSrc = getOptimizedImageUrl($rawSrc);
                     // Task 5 — Alt text automático
                     $imgAlt = htmlspecialchars($project['title']) . ' - Trabalho de ' . htmlspecialchars($project['category_names'] ?? 'Design') . ' por Joelton Souza';
                     ?>
                     <img 
                         src="<?php echo $imgSrc; ?>" 
-                        class="w-full h-full object-cover transition duration-700 group-hover:scale-105" 
+                        class="w-full h-full object-cover ken-burns" 
                         alt="<?php echo $imgAlt; ?>"
                         loading="lazy"
                         decoding="async"
                     >
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                        <span class="px-8 py-4 bg-white text-black text-[10px] font-black uppercase tracking-widest">Ver Case</span>
+                        <span class="ver-case-btn px-8 py-4 bg-white text-black text-[10px] font-black uppercase tracking-widest flex items-center justify-center">
+                            <span class="ver-case-label block">Ver Case</span>
+                        </span>
                     </div>
                 </div>
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2 block"><?php echo htmlspecialchars($project['category_names']); ?></span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-2 block"><?php echo htmlspecialchars($project['category_names'] ?? ''); ?></span>
                         <h3 class="text-3xl font-bold text-white tracking-tighter"><?php echo htmlspecialchars($project['title']); ?></h3>
                     </div>
                     <span class="text-sm font-light text-white/20 italic playfair"><?php echo date('Y', strtotime($project['created_at'])); ?></span>

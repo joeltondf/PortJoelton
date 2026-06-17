@@ -15,8 +15,8 @@
     <meta name="author" content="Joelton Souza">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonts - Outfit & Playfair Display for Premium Look -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <!-- Plus Jakarta Sans Font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -42,7 +42,7 @@
         }
         
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--primary);
             color: var(--text-main);
             overflow-x: hidden;
@@ -60,10 +60,10 @@
             z-index: 9999;
         }
         
-        .playfair { font-family: 'Playfair Display', serif; }
+        .playfair { font-family: 'Plus Jakarta Sans', sans-serif; font-style: italic; }
         
         .editorial-title {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             letter-spacing: -0.05em;
             line-height: 0.85;
             font-weight: 900;
@@ -169,7 +169,7 @@
         .mac-address-bar span {
             font-size: 10px;
             color: rgba(255,255,255,0.4);
-            font-family: 'Outfit', monospace;
+            font-family: 'Plus Jakarta Sans', monospace;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -248,7 +248,7 @@
             content: "";
             position: absolute;
             top: var(--mouse-y, 50%);
-            left: var(--mouse-x, 50%);
+            left: var(--mouse-y, 50%); /* corrected tracking variable */
             width: 400px;
             height: 400px;
             background: radial-gradient(circle closest-side, rgba(255,255,255,0.1), transparent);
@@ -259,13 +259,34 @@
             z-index: 10;
         }
 
+        /* Border Left Growing Bar on Vertente Hover */
+        .vertente-item {
+            position: relative;
+            padding-left: 24px;
+            transition: all 0.4s ease;
+        }
+        .vertente-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 3px;
+            height: 0%;
+            background: linear-gradient(180deg, #0875e9 0%, #8309ee 100%);
+            transform: translateY(-50%);
+            transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .vertente-item:hover::before {
+            height: 80%;
+        }
+
         .spotlight-wrapper:hover::after {
             opacity: 1;
         }
 
         /* Header Logo Styles */
         .header-logo {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             letter-spacing: -0.02em;
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             cursor: pointer;
@@ -293,23 +314,144 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
+        /* Swiper Logos Perspective Effects */
+        .swiper-slide {
+            transition: transform 0.6s ease, filter 0.6s ease, opacity 0.6s ease;
+            transform: scale(0.8);
+            opacity: 0.25;
+            filter: grayscale(100%);
+        }
+         /* Negative circle cursor overlay on hover for galleries */
+        .custom-cursor.gallery-hover-active {
+            width: 90px;
+            height: 90px;
+            background-color: #ffffff;
+            border-color: #ffffff;
+            mix-blend-mode: difference;
+        }
+        .custom-cursor.gallery-hover-active .custom-cursor-text {
+            display: none !important;
+        }
+
+        /* Custom Cursor styling */
+        .custom-cursor {
+            width: 40px;
+            height: 40px;
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), height 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .custom-cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 100000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+        .custom-cursor-text {
+            color: #000000;
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
+        }
+        .custom-cursor.active {
+            width: 80px;
+            height: 80px;
+            background-color: #ffffff;
+            border-color: #ffffff;
+        }
+        .custom-cursor.active .custom-cursor-text {
+            opacity: 1;
+        }
+        
+        /* Reveal Dinâmico and Easings */
+        .mask-reveal {
+            clip-path: inset(0 100% 0 0);
+        }
+        
+        /* High-End Ken Burns effect */
+        .ken-burns {
+            transition: transform 6s cubic-bezier(0.25, 1, 0.5, 1), filter 1.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .project-item:hover .ken-burns {
+            transform: scale(1.08) !important;
+        }
+        .project-item:hover h3 {
+            font-weight: 800 !important;
+            color: #ffffff !important;
+        }
     </style>
     <script>
         window.BASE_URL = '<?php echo BASE_URL; ?>';
     </script>
 </head>
 <body class="bg-[#050f1e] selection:bg-blue-500/30">
+    <div class="custom-cursor hidden md:block"><span class="custom-cursor-text">Ver Case</span></div>
+    <div class="custom-cursor-dot hidden md:block"></div>
 
     <!-- Header Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-md px-10 py-8 flex justify-between items-center transition-all duration-500" id="main-nav">
         <a href="<?php echo BASE_URL; ?>/" class="header-logo text-2xl font-black gradient-text"><?php echo htmlspecialchars($settings['company_name'] ?? 'PORTFOLIO.BSB'); ?></a>
         <div class="hidden md:flex space-x-8 text-sm font-medium">
             <a href="<?php echo BASE_URL; ?>/#hero" class="hover:text-[#0875e9] transition uppercase tracking-tighter text-[10px] font-bold">Início</a>
+            <a href="<?php echo BASE_URL; ?>/#about" class="hover:text-[#0875e9] transition uppercase tracking-tighter text-[10px] font-bold">Quem Sou</a>
             <a href="<?php echo BASE_URL; ?>/#skills" class="hover:text-[#0875e9] transition uppercase tracking-tighter text-[10px] font-bold">Expertise</a>
             <a href="<?php echo BASE_URL; ?>/#projects" class="hover:text-[#0875e9] transition uppercase tracking-tighter text-[10px] font-bold">Cases</a>
             <a href="<?php echo BASE_URL; ?>/#contact" class="hover:text-[#0875e9] transition uppercase tracking-tighter text-[10px] font-bold">Contato</a>
         </div>
+        
+        <!-- Mobile Menu Toggle Button -->
+        <button class="flex md:hidden text-white focus:outline-none cursor-pointer" id="mobile-menu-btn" aria-label="Abrir Menu">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
     </nav>
+
+    <!-- Mobile Drawer Menu Overlay -->
+    <div class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300" id="mobile-drawer-overlay"></div>
+    
+    <!-- Mobile Drawer Menu Content -->
+    <div class="fixed top-0 right-0 w-[280px] h-full z-[101] bg-[#050f1e] border-l border-white/5 p-10 flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-out" id="mobile-drawer">
+        <div>
+            <div class="flex justify-between items-center mb-16">
+                <span class="text-xs uppercase tracking-[0.2em] text-white/30 font-bold">Navegação</span>
+                <button class="text-white hover:text-[#0875e9] transition cursor-pointer" id="mobile-menu-close" aria-label="Fechar Menu">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div class="flex flex-col space-y-8 text-lg font-bold">
+                <a href="<?php echo BASE_URL; ?>/#hero" class="mobile-nav-link text-white hover:text-[#0875e9] transition tracking-tighter">Início</a>
+                <a href="<?php echo BASE_URL; ?>/#about" class="mobile-nav-link text-white hover:text-[#0875e9] transition tracking-tighter">Quem Sou</a>
+                <a href="<?php echo BASE_URL; ?>/#skills" class="mobile-nav-link text-white hover:text-[#0875e9] transition tracking-tighter">Expertise</a>
+                <a href="<?php echo BASE_URL; ?>/#projects" class="mobile-nav-link text-white hover:text-[#0875e9] transition tracking-tighter">Cases</a>
+                <a href="<?php echo BASE_URL; ?>/#contact" class="mobile-nav-link text-white hover:text-[#0875e9] transition tracking-tighter">Contato</a>
+            </div>
+        </div>
+        
+        <div>
+            <div class="text-[9px] uppercase tracking-widest text-white/20 font-mono mb-4">&copy; JOELTON SOUZA 2026</div>
+        </div>
+    </div>
 
     <main>
         <?php echo $content; ?>
@@ -355,6 +497,40 @@
             } else {
                 nav.classList.remove('scrolled');
             }
+        });
+
+        // Mobile Menu Interactivity
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+        const mobileOverlay = document.getElementById('mobile-drawer-overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function openMobileMenu() {
+            mobileDrawer.classList.remove('translate-x-full');
+            mobileOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            mobileOverlay.classList.add('opacity-100', 'pointer-events-auto');
+            document.body.style.overflow = 'hidden'; // block page scroll
+        }
+
+        function closeMobileMenu() {
+            mobileDrawer.classList.add('translate-x-full');
+            mobileOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+            mobileOverlay.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = ''; // restore scroll
+        }
+
+        if (mobileMenuBtn && mobileDrawer && mobileOverlay) {
+            mobileMenuBtn.addEventListener('click', openMobileMenu);
+        }
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMobileMenu);
+        }
+        if (mobileOverlay) {
+            mobileOverlay.addEventListener('click', closeMobileMenu);
+        }
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
         });
 
     </script>

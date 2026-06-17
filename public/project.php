@@ -102,7 +102,7 @@ ob_start();
 
         <!-- Task 2 — Main Media (MacBook frame para Web Design / normal para outros) -->
         <?php if ($project['main_image']): ?>
-            <?php $mainImgSrc = BASE_URL . '/' . getOptimizedImageUrl($project['main_image']); ?>
+            <?php $mainImgSrc = getOptimizedImageUrl($project['main_image']); ?>
             
             <?php if ($isWebDesign): ?>
             <!-- MacBook Pro Frame -->
@@ -191,19 +191,19 @@ ob_start();
                             </div>
                         <?php elseif($block['block_type'] === 'image'): ?>
                             <!-- Task 3 — GLightbox em blocos de imagem | Task 4 — gallery-item -->
+                            <?php $resolvedBlockImg = getOptimizedImageUrl($block['content']); ?>
                             <div class="glass-card overflow-hidden group w-full cursor-pointer gallery-item glightbox-trigger" 
-                                 data-glightbox="<?php echo htmlspecialchars($block['content']); ?>"
-                                 data-src="<?php echo BASE_URL . '/' . getOptimizedImageUrl($block['content']); ?>"
+                                 data-glightbox="<?php echo htmlspecialchars($resolvedBlockImg); ?>"
+                                 data-src="<?php echo $resolvedBlockImg; ?>"
                                  data-title="<?php echo htmlspecialchars($project['title']); ?>">
                                 <img 
-                                    src="<?php echo BASE_URL . '/' . getOptimizedImageUrl($block['content']); ?>" 
+                                    src="<?php echo $resolvedBlockImg; ?>" 
                                     class="w-full h-auto object-cover hover:scale-105 transition duration-1000" 
                                     alt="<?php echo $altText; ?>"
                                     loading="lazy"
                                     decoding="async"
                                 >
                                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition flex items-center justify-center">
-                                    <span class="opacity-0 group-hover:opacity-100 transition bg-white text-black text-[10px] font-black uppercase tracking-widest px-4 py-2">🔍 Ampliar</span>
                                 </div>
                             </div>
                         <?php elseif($block['block_type'] === 'link'): ?>
@@ -224,11 +224,19 @@ ob_start();
                     <!-- Task 4 — gallery-grid para GSAP stagger -->
                     <div class="gallery-grid grid grid-cols-1 md:grid-cols-2 gap-6">
                         <?php foreach($gallery as $index => $img): 
-                            $imgSrc = BASE_URL . '/' . getOptimizedImageUrl($img['image_path']);
+                            $imgSrc = getOptimizedImageUrl($img['image_path']);
                             $imgAlt = $altText . ' — imagem ' . ($index + 1);
+                            
+                            // Check if image exists locally or use production fallback
+                            $localPath = IMAGES_DOC_ROOT . '/' . $img['image_path'];
+                            if (file_exists($localPath)) {
+                                $fullImgUrl = BASE_URL . '/' . $img['image_path'];
+                            } else {
+                                $fullImgUrl = 'https://joelton.com.br/' . $img['image_path'];
+                            }
                         ?>
                         <!-- Task 4 — gallery-item | Task 3 — GLightbox a href -->
-                        <a href="<?php echo BASE_URL . '/' . $img['image_path']; ?>" 
+                        <a href="<?php echo $fullImgUrl; ?>" 
                            class="gallery-item glightbox glass-card overflow-hidden group cursor-pointer relative block"
                            data-gallery="gallery-<?php echo $project['id']; ?>"
                            data-glightbox="title: <?php echo htmlspecialchars($project['title']); ?>"
@@ -242,9 +250,6 @@ ob_start();
                             >
                             <!-- Hover overlay -->
                             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
-                                <div class="opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
-                                    <span class="bg-white text-black text-[10px] font-black uppercase tracking-widest px-6 py-3">🔍 Ampliar</span>
-                                </div>
                             </div>
                         </a>
                         <?php endforeach; ?>
