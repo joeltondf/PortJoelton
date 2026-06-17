@@ -78,6 +78,7 @@
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
+            border-radius: 0.5rem; /* rounded-lg (8px) padronizado */
         }
         
         .gradient-text {
@@ -373,15 +374,6 @@
             opacity: 0;
             transition: opacity 0.2s ease;
             white-space: nowrap;
-        }
-        .custom-cursor.active {
-            width: 80px;
-            height: 80px;
-            background-color: #ffffff;
-            border-color: #ffffff;
-        }
-        .custom-cursor.active .custom-cursor-text {
-            opacity: 1;
         }
         
         /* Reveal Dinâmico and Easings */
