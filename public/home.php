@@ -108,9 +108,9 @@ require_once __DIR__ . '/api/image_helper.php';
     <div class="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-600/5 blur-[100px] rounded-full pointer-events-none"></div>
     
     <div class="max-w-7xl mx-auto relative z-10">
-        <div class="overflow-hidden mb-20">
-            <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-white/30 block mb-6 scroll-parallax-x" data-speed="-20">Quem Sou</span>
-            <h2 class="text-6xl font-bold tracking-tighter text-white scroll-parallax-x" data-speed="20">Perfil <i class="playfair italic font-normal">Multidisciplinar.</i></h2>
+        <div class="mb-20">
+            <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-white/30 block mb-6 scroll-parallax-x" data-speed="-15">Quem Sou</span>
+            <h2 class="text-6xl font-bold tracking-tighter text-white scroll-parallax-x" data-speed="15">Perfil <i class="playfair italic font-normal">Multidisciplinar.</i></h2>
         </div>
         
         <div class="grid lg:grid-cols-12 gap-16 items-center">
