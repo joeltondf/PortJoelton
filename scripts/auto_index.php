@@ -26,9 +26,9 @@ if ($isCLI) {
     }
     
     // Incluir apenas PDO do config sem session_start
-    $db_host = 'localhost';
-    $db_name = 'portifolio';
-    $db_user = 'joeltondf';
+    $db_host = '193.203.175.141';
+    $db_name = 'u449430520_joelton';
+    $db_user = 'u449430520_userjoelton';
     $db_pass = '@Mijo0409';
     
     try {

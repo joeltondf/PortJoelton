@@ -38,38 +38,36 @@ require_once __DIR__ . '/api/image_helper.php';
         <style>
             .clients-swiper .swiper-slide {
                 transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-                opacity: 0.35; /* Inativos mais nítidos */
+                opacity: 0.35; /* Logos apagadas aparecem mais */
                 transform: scale(0.8);
                 filter: grayscale(1);
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
-            /* Em visualização de 5 colunas com centeredSlides: true */
-            /* slides[0] = active (coluna 1) */
-            /* slides[1] = active+1 (coluna 2) */
-            /* slides[2] = active+2 (coluna 3 - Centro Real) */
             
+            /* Em Swiper com centeredSlides: true, o slide central na tela (3ª coluna) é sempre o swiper-slide-active */
             .clients-swiper .swiper-slide-active {
-                opacity: 0.35 !important;
-                transform: scale(0.8) !important;
+                opacity: 1.0 !important;
+                transform: scale(1.35) !important; /* Terceira coluna (centro real) maior */
+                filter: grayscale(0) !important;
+                z-index: 10;
             }
+            
+            /* Slides imediatamente adjacentes (coluna 2 e coluna 4) */
+            .clients-swiper .swiper-slide-prev,
             .clients-swiper .swiper-slide-next {
                 opacity: 0.55 !important;
                 transform: scale(0.95) !important;
                 filter: grayscale(0.8) !important;
             }
-            /* O slide central no grid de 5 colunas (duas colunas após o active) */
+
+            /* Slides das extremidades (coluna 1 e coluna 5) */
+            .clients-swiper .swiper-slide-prev-prev, /* classe conceitual caso necessária, ou fallback padrão */
             .clients-swiper .swiper-slide-next + .swiper-slide {
-                opacity: 1.0 !important;
-                transform: scale(1.35) !important; /* Terceira coluna maior */
-                filter: grayscale(0) !important;
-                z-index: 10;
-            }
-            .clients-swiper .swiper-slide-next + .swiper-slide + .swiper-slide {
-                opacity: 0.55 !important;
-                transform: scale(0.95) !important;
-                filter: grayscale(0.8) !important;
+                opacity: 0.35 !important;
+                transform: scale(0.8) !important;
+                filter: grayscale(1) !important;
             }
             .filter-btn.active {
                 border-color: rgba(139, 92, 246, 0.5) !important;

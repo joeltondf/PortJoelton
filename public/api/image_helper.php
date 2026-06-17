@@ -89,16 +89,31 @@ function getOptimizedImageUrl(string $relativePath, bool $autoConvert = true): s
         return $relativePath;
     }
     
-    $ext = strtolower(pathinfo($relativePath, PATHINFO_EXTENSION));
-    
-    // Ignora se já for WebP ou URL externa
-    if ($ext === 'webp' || str_starts_with($relativePath, 'http')) {
+    // Ignora se já for URL externa
+    if (str_starts_with($relativePath, 'http')) {
         return $relativePath;
     }
     
-    // Só converte formatos suportados
-    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) {
-        return $relativePath;
+    $ext = strtolower(pathinfo($relativePath, PATHINFO_EXTENSION));
+    
+    // Se o formato não for suportado para conversão
+    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+        $sourceAbsolute = IMAGES_DOC_ROOT . '/' . $relativePath;
+        if (file_exists($sourceAbsolute)) {
+            return BASE_URL . '/' . $relativePath;
+        } else {
+            return 'https://joelton.com.br/' . $relativePath;
+        }
+    }
+    
+    // Se já for webp, verifica se existe localmente
+    if ($ext === 'webp') {
+        $sourceAbsolute = IMAGES_DOC_ROOT . '/' . $relativePath;
+        if (file_exists($sourceAbsolute)) {
+            return BASE_URL . '/' . $relativePath;
+        } else {
+            return 'https://joelton.com.br/' . $relativePath;
+        }
     }
     
     // Caminho WebP correspondente
@@ -106,21 +121,26 @@ function getOptimizedImageUrl(string $relativePath, bool $autoConvert = true): s
     $webpAbsolute = IMAGES_DOC_ROOT . '/' . $webpRelative;
     $sourceAbsolute = IMAGES_DOC_ROOT . '/' . $relativePath;
     
-    // Verificar se WebP já existe
+    // Verificar se WebP já existe localmente
     if (file_exists($webpAbsolute)) {
-        return $webpRelative;
+        return BASE_URL . '/' . $webpRelative;
     }
     
     // Tentar converter na primeira carga
     if ($autoConvert && file_exists($sourceAbsolute)) {
         $converted = convertToWebP($sourceAbsolute, $webpAbsolute);
         if ($converted) {
-            return $webpRelative;
+            return BASE_URL . '/' . $webpRelative;
         }
     }
     
-    // Fallback para original
-    return $relativePath;
+    // Se o arquivo original existe localmente, use-o
+    if (file_exists($sourceAbsolute)) {
+        return BASE_URL . '/' . $relativePath;
+    }
+    
+    // Fallback final: se não existe localmente, busca o WebP da produção
+    return 'https://joelton.com.br/' . $webpRelative;
 }
 
 /**
@@ -135,9 +155,8 @@ function getOptimizedImageUrl(string $relativePath, bool $autoConvert = true): s
 function optimizedImg(string $src, string $alt = '', string $class = '', bool $eager = false): string {
     $optimizedSrc = getOptimizedImageUrl($src);
     $loading = $eager ? 'eager' : 'lazy';
-    $fullSrc = BASE_URL . '/' . $optimizedSrc;
     $altEscaped = htmlspecialchars($alt);
     $classAttr = $class ? ' class="' . htmlspecialchars($class) . '"' : '';
     
-    return "<img src=\"{$fullSrc}\"{$classAttr} alt=\"{$altEscaped}\" loading=\"{$loading}\" decoding=\"async\">";
+    return "<img src=\"{$optimizedSrc}\"{$classAttr} alt=\"{$altEscaped}\" loading=\"{$loading}\" decoding=\"async\">";
 }

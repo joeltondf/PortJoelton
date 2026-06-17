@@ -1,6 +1,7 @@
 <?php
 if (!defined('BASE_URL')) exit;
 checkAuth();
+require_once __DIR__ . '/../api/image_helper.php';
 
 // Handle deletions
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
@@ -83,7 +84,7 @@ unset($p);
             <div class="glass-panel rounded-xl overflow-hidden group">
                 <div class="relative h-64 overflow-hidden">
                     <?php if ($project['main_image']): ?>
-                    <img src="<?php echo BASE_URL . '/' . htmlspecialchars($project['main_image']); ?>" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <img src="<?php echo getOptimizedImageUrl($project['main_image']); ?>" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                     <?php else: ?>
                     <div class="w-full h-full bg-white/5 flex items-center justify-center">
                         <span class="text-4xl opacity-20">📷</span>
@@ -247,8 +248,17 @@ unset($p);
             document.getElementById('projectTools').value = Array.isArray(tools) ? tools.join('; ') : '';
             
             const baseUrl = '<?php echo BASE_URL; ?>';
+            const getImageUrl = (path) => {
+                if (!path) return '';
+                if (path.startsWith('http')) return path;
+                if (path.startsWith('images/projects/')) {
+                    return 'https://joelton.com.br/' + path;
+                }
+                return baseUrl + '/' + path;
+            };
+            
             if (project.main_image) {
-                document.getElementById('previewImg').src = baseUrl + '/' + project.main_image;
+                document.getElementById('previewImg').src = getImageUrl(project.main_image);
                 document.getElementById('previewImg').classList.remove('hidden');
                 document.getElementById('btnRemoveCover').classList.remove('hidden');
             } else {
@@ -265,7 +275,7 @@ unset($p);
                     wrap.className = 'relative group w-full h-32 rounded-lg overflow-hidden border border-white/5 shadow-xl transition-all duration-300 hover:border-blue-500/50';
                     wrap.id = 'gal-img-' + img.id;
                     wrap.innerHTML = `
-                        <img src="${baseUrl}/${img.image_path}" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500">
+                        <img src="${getImageUrl(img.image_path)}" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500">
                         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-2 flex justify-between items-center opacity-0 group-hover:opacity-100 transition translate-y-2 group-hover:translate-y-0 duration-300">
                             <button type="button" onclick="setAsCover('${img.image_path}')" class="w-7 h-7 bg-blue-600 hover:bg-blue-400 text-white rounded-full flex items-center justify-center text-[10px] shadow-lg transition" title="Definir como Capa">★</button>
                             <button type="button" onclick="deleteGalleryImage(${img.id})" class="w-7 h-7 bg-red-600/80 hover:bg-red-500 text-white rounded-full flex items-center justify-center text-[10px] shadow-lg transition" title="Deletar">✕</button>
@@ -334,8 +344,7 @@ unset($p);
                 });
                 const data = await res.json();
                 if (data.success) {
-                    const baseUrl = '<?php echo BASE_URL; ?>';
-                    document.getElementById('previewImg').src = baseUrl + '/' + path;
+                    document.getElementById('previewImg').src = getImageUrl(path);
                     document.getElementById('previewImg').classList.remove('hidden');
                     document.getElementById('btnRemoveCover').classList.remove('hidden');
                     alert('Capa atualizada com sucesso!');

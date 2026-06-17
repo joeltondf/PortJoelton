@@ -17,19 +17,10 @@ if (!defined('BASE_URL')) {
 session_start();
 
 // Database credentials
-$is_local = ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['REMOTE_ADDR'] === '127.0.0.1');
-
-if ($is_local) {
-    $host = 'localhost';
-    $db   = 'portifolio';
-    $user = 'root';
-    $pass = '';
-} else {
-    $host = '193.203.175.141';
-    $db   = 'u449430520_joelton';
-    $user = 'u449430520_userjoelton';
-    $pass = '@Mijo0409';
-}
+$host = '193.203.175.141';
+$db   = 'u449430520_joelton';
+$user = 'u449430520_userjoelton';
+$pass = '@Mijo0409';
 
 $charset = 'utf8mb4';
 
